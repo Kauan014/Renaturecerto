@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import AuthProvider from './Src/context/authContext';
+import Routes from './src/routes';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+/*
+
+========================
+APP.JS
+========================
+
+Arquivo principal do aplicativo.
+
+Responsável por iniciar:
+- AuthProvider
+- sistema de rotas
+- contexto global
+
+Fluxo:
+
+index.js
+↓
+App.js
+↓
+AuthProvider
+↓
+Routes
+↓
+AuthRoutes ou AppRoutes
+
+Tudo começa aqui.
+
+*/

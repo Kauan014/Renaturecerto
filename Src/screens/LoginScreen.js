@@ -4,100 +4,133 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  TextInput, 
 } from 'react-native';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react'; 
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { AuthContext } from '../context/authContext';
 
 export default function LoginScreen() {
-
   const { login } = useContext(AuthContext);
+  
+  // Estados para armazenar o texto digitado pelo usuário
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
 
   return (
     <View style={styles.container}>
 
-      {/* LOGO */}
+      {/* --- LOGO --- */}
       <View style={styles.logoContainer}>
-
-        {/* Troque pela sua logo */}
-        {/* <Image source={require('../../assets/logo.png')} /> */}
+        <Image source={require('../../assets/LogoRenature.png')} />
+        <MaterialCommunityIcons name="recycle" size={55} color="#4A7C00" />
 
         <Text style={styles.logoText}>
-          ReNature
+          Re<Text style={styles.logoTextGreen}>Nature</Text>
         </Text>
 
         <View style={styles.line} />
       </View>
 
 
-      {/* CARD */}
+      {/* --- CARD VERDE DE LOGIN --- */}
       <View style={styles.card}>
 
-        <Text style={styles.title}>
-          Bem-vindo
-        </Text>
+        {/* CAMPO: NOME DO USUÁRIO */}
+        <View style={styles.inputGroup}>
+          <MaterialCommunityIcons
+            name="account"
+            size={24}
+            color="#000"
+            style={styles.inputIcon}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Nome do usuário"
+            placeholderTextColor="#555"
+            value={usuario}
+            onChangeText={setUsuario}
+          />
+        </View>
 
-        <Text style={styles.description}>
-          Entre com sua conta para acessar o aplicativo.
-        </Text>
+        {/* CAMPO: SENHA */}
+        <View style={styles.inputGroup}>
+          <MaterialCommunityIcons
+            name="lock"
+            size={24}
+            color="#000"
+            style={styles.inputIcon}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            placeholderTextColor="#555"
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={setSenha}
+          />
+        </View>
 
+        {/* LINKS: MANTER CONECTADO E ESQUECI MINHA SENHA */}
+        <View style={styles.optionsRow}>
+          <TouchableOpacity style={styles.checkboxContainer}>
+            <View style={styles.checkbox} />
+            <Text style={styles.optionText}>Manter conectado.</Text>
+          </TouchableOpacity>
 
-        {/* BOTÃO AUTH0 */}
+          <TouchableOpacity>
+            <Text style={[styles.optionText, styles.underlineText]}>
+              Esqueci minha senha
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* BOTÃO ENTRAR */}
         <TouchableOpacity
-          style={styles.loginButton}
+          style={styles.buttonEntrar}
           onPress={login}
         >
-
-          <MaterialCommunityIcons
-            name="shield-account"
-            size={26}
-            color="#FFF"
-          />
-
-          <Text style={styles.loginButtonText}>
-            Entrar com Auth0
-          </Text>
-
+          <Text style={styles.buttonEntrarText}>ENTRAR</Text>
         </TouchableOpacity>
 
 
-        {/* LOGIN SOCIAL */}
-        <View style={styles.socialContainer}>
-
-          <View style={styles.socialItem}>
-            <MaterialCommunityIcons
-              name="google"
-              size={32}
-              color="#DB4437"
-            />
-
-            <Text style={styles.socialText}>
-              Google
-            </Text>
-          </View>
+        {/* LINHA DIVISÓRIA INTERNA */}
+        <View style={styles.cardLine} />
 
 
-          <View style={styles.socialItem}>
-            <MaterialCommunityIcons
-              name="facebook"
-              size={32}
-              color="#1877F2"
-            />
+        {/* BOTÃO LOGIN SOCIAL: GOOGLE */}
+        <TouchableOpacity style={styles.socialButton} onPress={login}>
+          <MaterialCommunityIcons
+            name="google"
+            size={24}
+            color="#DB4437"
+            style={styles.socialIcon}
+          />
+          <Text style={styles.socialButtonText}>
+            <a href="https://www.google.com/">
+              Login com Google
+          </a>
+          </Text>
+        </TouchableOpacity>
 
-            <Text style={styles.socialText}>
-              Facebook
-            </Text>
-          </View>
 
-        </View>
-
-
-        <Text style={styles.footerText}>
-          O login social será exibido automaticamente pelo Auth0.
-        </Text>
+        {/* BOTÃO LOGIN SOCIAL: FACEBOOK */}
+        <TouchableOpacity style={styles.socialButton} onPress={login}>
+          <MaterialCommunityIcons
+            name="facebook"
+            size={24}
+            color="#1877F2"
+            style={styles.socialIcon}
+          />
+          <Text style={styles.socialButtonText}>
+            <a href="https://www.facebook.com/login/">
+              Login com Facebook
+          </a>
+          </Text>
+        </TouchableOpacity>
 
       </View>
 
@@ -105,109 +138,127 @@ export default function LoginScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: '#F5F2E9',
+    backgroundColor: '#FAF8F0', 
     alignItems: 'center',
     justifyContent: 'center',
     padding: 25,
   },
-
-
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 35,
     width: '100%',
   },
-
-
   logoText: {
-    fontSize: 52,
+    fontSize: 48,
     fontWeight: 'bold',
-    color: '#4A7C00',
+    color: '#000000', 
+    marginTop: 5,
   },
-
-
+  logoTextGreen: {
+    color: '#4A7C00', 
+  },
   line: {
-    width: '70%',
+    width: '75%',
     height: 2,
     backgroundColor: '#000',
-    marginTop: 10,
+    marginTop: 5,
   },
-
-
   card: {
     width: '100%',
-    backgroundColor: '#4A7C00',
+    backgroundColor: '#4A7C00', 
+    borderRadius: 20,
+    padding: 22,
+    alignItems: 'center',
+    elevation: 5, 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  inputGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
     borderRadius: 30,
-    padding: 25,
-    alignItems: 'center',
+    width: '100%',
+    height: 50,
+    paddingHorizontal: 15,
+    marginBottom: 15,
   },
-
-
-  title: {
-    color: '#FFF',
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 10,
+  inputIcon: {
+    marginRight: 10,
   },
-
-
-  description: {
-    color: '#FFF',
+  input: {
+    flex: 1,
+    height: '100%',
+    color: '#000',
     fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 35,
   },
-
-
-  loginButton: {
+  optionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
-    height: 60,
-    backgroundColor: '#111827',
-    borderRadius: 18,
+    marginBottom: 25,
+    paddingHorizontal: 5,
+  },
+  checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  checkbox: {
+    width: 12,
+    height: 12,
+    borderWidth: 1,
+    borderColor: '#FFF',
+    marginRight: 6,
+  },
+  optionText: {
+    color: '#FFF',
+    fontSize: 11,
+  },
+  underlineText: {
+    textDecorationLine: 'underline',
+  },
+  buttonEntrar: {
+    backgroundColor: '#FFF',
+    borderRadius: 30,
+    width: '55%',
+    height: 42,
     justifyContent: 'center',
-    marginBottom: 35,
-  },
-
-
-  loginButtonText: {
-    color: '#FFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 12,
-  },
-
-
-  socialContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 30,
-  },
-
-
-  socialItem: {
     alignItems: 'center',
+    marginBottom: 20,
   },
-
-
-  socialText: {
-    color: '#FFF',
-    marginTop: 8,
+  buttonEntrarText: {
+    color: '#000',
     fontWeight: 'bold',
+    fontSize: 15,
   },
-
-
-  footerText: {
-    color: '#E5E7EB',
-    textAlign: 'center',
-    fontSize: 13,
+  cardLine: {
+    width: '100%',
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)', 
+    marginBottom: 20,
   },
-
+  socialButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: 30,
+    width: '100%',
+    height: 50,
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  socialIcon: {
+    marginRight: 15,
+  },
+  socialButtonText: {
+    textDecorationLine: 'none',
+    color: '#000',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 });

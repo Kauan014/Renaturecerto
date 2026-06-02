@@ -5,10 +5,20 @@ export const AuthContext = createContext({});
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  function login() {
+  function login(email, senha) {
+    const emailValido = email.includes('@') && email.includes('.');
+    const senhaValida = senha.length >= 6;
+
+    if (!emailValido || !senhaValida) {
+      alert('Erro: Insira um e-mail válido e uma senha com no mínimo 6 caracteres.');
+      return false;
+    }
+
     setUser({
-      nome: 'Kauan',
+      email: email,
+      nome: email.split('@')[0], 
     });
+    return true;
   }
 
   function logout() {
@@ -27,50 +37,3 @@ export default function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-
-/*
-
-========================
-AUTHCONTEXT
-========================
-
-Responsável por controlar autenticação do aplicativo inteiro.
-
-Aqui ficam:
-- usuário logado
-- login
-- logout
-- token futuramente
-
-O Context permite que qualquer tela consiga acessar
-informações do usuário sem precisar passar props.
-
-Fluxo:
-
-Login
-↓
-AuthContext salva usuário
-↓
-Routes detecta login
-↓
-AppRoutes é liberado
-
-Quando usuário sai:
-↓
-logout()
-↓
-setUser(null)
-↓
-volta para AuthRoutes
-
-Futuramente:
-- Auth0
-- Firebase Auth
-- JWT
-- Login Google
-- Login Apple
-
-Tudo será controlado aqui.
-
-*/

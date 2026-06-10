@@ -80,9 +80,8 @@ export default function MapScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* --- RENDERIZAÇÃO DO MAPA (HÍBRIDA WEB/NATIVO) --- */}
+      {/* --- RENDERIZAÇÃO DO MAPA  --- */}
       {Platform.OS === 'web' ? (
-        // 🛠️ SE FOR EXECUTADO NA WEB: Mostra maquete interativa para não quebrar o navegador
         <View style={[styles.mapa, styles.webMapContainer]}>
           <MaterialCommunityIcons name="map" size={50} color="#A0AEC0" />
           <Text style={styles.webMapTitle}>Visualização de Mapa (Modo Web)</Text>
@@ -105,7 +104,6 @@ export default function MapScreen({ navigation }) {
           </ScrollView>
         </View>
       ) : (
-        // SE FOR EXECUTADO NO ANDROID STUDIO: Ativa o mapa original do Google Maps
         <MapView 
           style={styles.mapa}
           region={regiao}
@@ -241,7 +239,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height - 250, 
     flex: 1,
   },
-  // Estilos exclusivos adicionados para simulação Web
   webMapContainer: {
     backgroundColor: '#E2E8F0',
     justifyContent: 'center',

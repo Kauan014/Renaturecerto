@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { AuthContext } from '../context/authContext';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const { user, logout } = useContext(AuthContext);
   
   const [exibindoPerfil, setExibindoPerfil] = useState(false);
@@ -73,7 +73,8 @@ export default function HomeScreen() {
               resizeMode="contain"
             />
 
-            <TouchableOpacity style={styles.menuButton} activeOpacity={0.8}>
+            <TouchableOpacity onPress={() => navigation.navigate('Reciclaveis')}
+            style={styles.menuButton} activeOpacity={0.8}>
               <Text style={styles.menuButtonText}>RECICLÁVEIS</Text>
             </TouchableOpacity>
 

@@ -3,9 +3,9 @@ import Routes from './Src/routes';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
   );
 }
 

@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SocialScreen from '../screens/SocialScreen';
 import HomeScreen from '../screens/HomeScreen';
-import ReciclaveisScreen from '../screens/ReciclaveisScreen';
 
 const Tab = createBottomTabNavigator();
 
